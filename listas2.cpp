@@ -31,6 +31,8 @@ public:
 	void insertar(ejem x);
 	void borrar(int x);
 	void mostrar();
+	void mostrarUno(int x);
+	void modificar(int x);
 };
 
 void lista::insertar(ejem x) {
@@ -51,14 +53,14 @@ void lista::borrar(int x) {
 	nodo *nuevo;
 	nuevo = inicio;
 	bool con = false;
-	while (nuevo || con != true)
+	while (con != true)
 	{
 		if (nuevo->valor.id == x) {
 			if (nuevo == inicio) {
 				inicio->siguiente->anterior = NULL;
 				inicio = inicio->siguiente;
 			}
-			else if (nuevo->valor.id == x) {
+			else if (nuevo == finali) {
 				finali->anterior->siguiente = NULL;
 				finali = finali->anterior;
 			}
@@ -69,7 +71,11 @@ void lista::borrar(int x) {
 			con = true;
 		}
 		if (con == true) delete nuevo;
-		else nuevo = nuevo->siguiente;
+		else if (nuevo->siguiente == NULL) {
+			con = true; 
+			cout << "No se pudo borrar" << endl;
+		}
+		else nuevo = nuevo->siguiente; 
 	}
 }
 void lista::mostrar() {
@@ -81,9 +87,49 @@ void lista::mostrar() {
 		nuevo = nuevo->siguiente;
 	}
 }
+void lista::mostrarUno(int x) {
+	nodo *nuevo;
+	nuevo = inicio;
+	bool con = false;
+	while (con!=true)
+	{
+		if (nuevo->valor.id == x) {
+			cout << nuevo->valor.x << endl;
+			con = true;
+		}
+		else if (nuevo->siguiente == NULL) {
+			cout << "No se encontro" << endl;
+			con = true;
+		}
+		else nuevo = nuevo->siguiente;
+	}
+}
+void lista::modificar(int x) {
+	nodo *nuevo;
+	nuevo = inicio;
+	bool con = false;
+
+	string cam;
+
+	while (con != true)
+	{
+		if (nuevo->valor.id == x) {
+			cout << "Ingrese el nuevo valor" << endl;
+			cin >> cam;
+			nuevo->valor.x = cam;
+			con = true;
+		}
+		else if (nuevo->siguiente == NULL) {
+			cout << "No se encontro" << endl;
+			con = true;
+		}
+		else nuevo = nuevo->siguiente;
+	}
+}
 int main() {
 	lista miLis;
 	ejem uno;
+
 	uno.id = 1;
 	uno.x = "uno";
 	miLis.insertar(uno);
@@ -94,9 +140,50 @@ int main() {
 	uno.x = "tres";
 	miLis.insertar(uno);
 	miLis.mostrar();
-	miLis.borrar(2);
-	cout << "otra"<<endl;
+
+	miLis.borrar(3);
+	cout <<endl<<endl;
 	miLis.mostrar();
+
+	uno.id = 4;
+	uno.x = "cuatro";
+	miLis.insertar(uno);
+	uno.id = 5;
+	uno.x = "cinco";
+	miLis.insertar(uno);
+	uno.id = 6;
+	uno.x = "sies";
+	miLis.insertar(uno);
+	cout << endl << endl;
+	miLis.mostrar();
+
+	miLis.borrar(5);
+	cout << endl << endl;
+	miLis.mostrar();
+
+	miLis.borrar(6);
+	miLis.borrar(1);
+	cout << endl << endl;
+	miLis.mostrar();
+
+	uno.id = 7;
+	uno.x = "siete";
+	miLis.insertar(uno);
+	cout << endl << endl;
+	miLis.mostrar();
+
+	//247
+	cout << endl << endl;
+	miLis.mostrarUno(9);
+	miLis.borrar(8);
+	cout << endl << endl;
+	miLis.mostrar();
+
+	cout << endl << endl;
+	miLis.modificar(4);
+	cout << endl << endl;
+	miLis.mostrar();
+
 
 	return 0;
 }
