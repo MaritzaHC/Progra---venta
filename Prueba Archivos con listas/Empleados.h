@@ -7,6 +7,7 @@ class Empleados
 		string Nombre;
 	public:
 		Empleados(){}
+		Empleados *siguiente,*anterior;
 		int Codigo;
 		void setCodigo(int c){ Codigo=c;		}
 		void setEdad(int e){ Edad=e;		}
@@ -19,7 +20,7 @@ class Empleados
 		string getNombre(){ return Nombre;		}
 		int getEdad(){ return Edad;		}
 		void registrarEmpleado();
-		//void consultarEmpleado();
+		void ConsultarEmpleado();
 		//void eliminarEmpleado();
 		//void modificarEmpleado();
 };
@@ -33,12 +34,20 @@ void Empleados::registrarEmpleado()
 	cout<<"Ingrese el Sueldo del Empleado"<<endl; fflush(stdin); cin>>sueldo; setSueldo(sueldo);
 	cout<<"Ingrese la comision del Empleado"<<endl; fflush(stdin); cin>>comision; setComisiones(comision);
 }
+void Empleados::ConsultarEmpleado()
+{
+	cout<<"Nombre :\t"<<getNombre();
+	cout<<"Edad :\t"<<getEdad();
+	cout<<"Sueldo :\t"<<getSueldo();
+	cout<<"Comision :\t"<<getComisiones();
+}
 class nodo 
 {
 	public:
 		nodo(Empleados v, nodo *ant = NULL, nodo *sig = NULL) :
 			valor(v), anterior(ant), siguiente(sig) {}
 	private:
+		nodo();
 		Empleados valor;
 		nodo *anterior;
 		nodo *siguiente;
@@ -46,6 +55,8 @@ class nodo
 };
 class lista {
 public:
+	int Codigo,Longitud;
+	Empleados *Lista;
 	lista(nodo *ini = NULL, nodo *fin = NULL) :inicio(ini), finali(fin) {}
 	nodo *inicio;
 	nodo *finali;
@@ -139,21 +150,21 @@ void lista::borrar(int x) {
 }
 void lista::InsertarEmpleado(Empleados *p)
 {
-	if(valor==NULL)
+	if(Lista==NULL)
 	{
-		valor=p;
-		p->inicio=p;
+		Lista=p;
+		p->siguiente=p;
 		Longitud=1;
 		Codigo=1;
 	}
 	else
 	{
 		Empleados *x;
-		p->inicio=Lista;
+		p->siguiente=Lista;
 		x=Lista;
-		while(x->inicio!=Lista)
+		while(x->siguiente!=Lista)
 		{
-			x=x->inicio;
+			x=x->siguiente;
 		}
 		x->siguiente=p;
 	}
@@ -266,10 +277,10 @@ void lista::RecargarArchivo(){
 	ifstream salida;
 	salida.open("Empleado.dat",ios::in|ios::binary);
 	Empleados *x;
-	if(valor!=NULL)
+	if(Lista!=NULL)
 	{
-		x=valor;
-		while(x->siguiente!=valor)
+		x=Lista;
+		while(x->siguiente!=Lista)
 		{
 			entrada.write((char *)x,sizeof(Empleados));
 			x=x->siguiente;
