@@ -55,7 +55,7 @@ int main()
 								
 								break;
 							case 2:
-								listE.mostrar();
+								listE.mostrarUno(1);
 								break;
 							case 3:
 								break;

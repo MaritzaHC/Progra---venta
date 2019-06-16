@@ -1,17 +1,17 @@
 #include"todo.h"
 #include"clases/Cliente.h"
 #include"clases/Empleados.h"
-//#include"clases/carros.h"
-//#include"clases/factura.h"
-#include"clases/ListasEmpleados.h"
+#include"clases/carros.h"
+#include"clases/factura.h"
 int main()
 {
 	int opc=0;
-	//Carros car;
+	Carros car;
 	Empleados emp;
+	lista listE;
 	Cliente client;
 	do{
-		cout<<"Que desea realizar?\n\n1.-Registrar\n2.-Consultar\n3.-Modificar\n4.-Eliminar\n5.-Salir\n\n"
+		cout<<"Que desea realizar?\n\n1.-Registrar\n2.-Consultar\n3.-Modificar\n4.-Eliminar\n5.-Salir\n\n";
 		cin>>opc;
 		switch(opc)
 		{
@@ -19,7 +19,7 @@ int main()
 				cout<<"Registros\n\n\n\n";
 				int opc2=0;
 				do{
-					cout<<"Que es lo que desea registrar?1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
+					cout<<"Que es lo que desea registrar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
 					cin>>opc2;
 					switch(opc2)
 					{
@@ -28,6 +28,7 @@ int main()
 							break;
 						case 2:
 							emp.registrarEmpleado();
+							listE.insertar(emp);
 							break;
 						case 3:
 							client.registrarCliente();
@@ -47,7 +48,7 @@ int main()
 				cout<<"Consultas\n\n\n\n";
 				int opc2=0;
 				do{
-					cout<<"Que desea consultar?1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
+					cout<<"Que desea consultar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
 					cin>>opc2;
 					switch(opc2)
 					{
@@ -70,7 +71,7 @@ int main()
 				cout<<"Modificaciones\n\n\n\n";
 				int opc2=0;
 				do{
-					cout<<"Que desea modificar?1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
+					cout<<"Que desea modificar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
 					cin>>opc2;
 					switch(opc2)
 					{
@@ -93,7 +94,7 @@ int main()
 				cout<<"Eliminar\n\n\n\n";
 				int opc2=0;
 				do{
-					cout<<"Que desea eliminar?1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
+					cout<<"Que desea eliminar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
 					cin>>opc2;
 					switch(opc2)
 					{
