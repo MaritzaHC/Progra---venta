@@ -2,43 +2,43 @@
 
 class carros{
     private:
-        char marca[10];
-        char modelo[10];
+        string marca;
+        string modelo;
         int aa;
         bool tipo;
         float precio;
     public:
     	int id;
-        char getMarca(){return *marca;}
-        char getModelo(){return *modelo;}
+        string getMarca(){return marca;}
+        string getModelo(){return modelo;}
         int getAa(){return aa;}
         bool getTipo(){return tipo;}
         float getPrecio(){return precio;}
-        void setMarca(char dato[10]){*marca=dato;}
-        void setModelo(char dato[10]){*modelo=dato;}
+        void setMarca(string dato){marca=dato;}
+        void setModelo(string dato){modelo=dato;}
         void setAa(int dato){aa=dato;}
         void setTipo(bool dato){tipo=dato;}
         void setPrecio(float dato){precio=dato;}
         
         void registrarCarros();
 };
-class nodo {
+class nodoC {
 public:
-	nodo(carros v, nodo *ant = NULL, nodo *sig = NULL) :
+	nodoC(carros v, nodoC *ant = NULL, nodoC *sig = NULL) :
 		valor(v), anterior(ant), siguiente(sig) {}
 
 private:
 	carros valor;
-	nodo *anterior;
-	nodo *siguiente;
+	nodoC *anterior;
+	nodoC *siguiente;
 
-	friend class lista;
+	friend class listaC;
 };
-class lista {
+class listaC {
 public:
-	lista(nodo *ini = NULL, nodo *fin = NULL) :inicio(ini), finali(fin) {}
-	nodo *inicio;
-	nodo *finali;
+	listaC(nodoC *ini = NULL, nodoC *fin = NULL) :inicio(ini), finali(fin) {}
+	nodoC *inicio;
+	nodoC *finali;
 	void insertar(carros x);
 	void borrar(int x);
 	void mostrar();
@@ -46,22 +46,22 @@ public:
 	void modificar(int x);
 };
 
-void lista::insertar(carros x) {
-	nodo *nuevo;
+void listaC::insertar(carros x) {
+	nodoC *nuevo;
 	if (inicio == NULL) {
-		nuevo = new nodo(x, inicio);
+		nuevo = new nodoC(x, inicio);
 		inicio = nuevo;
 		finali = nuevo;
 	}
 	else {
-		nuevo = new nodo(x, finali);
+		nuevo = new nodoC(x, finali);
 		finali->siguiente = nuevo;
 		nuevo->anterior = finali;
 		finali = nuevo;
 	}
 }
-void lista::borrar(int x) {
-	nodo *nuevo;
+void listaC::borrar(int x) {
+	nodoC *nuevo;
 	nuevo = inicio;
 	bool con = false;
 	while (con != true)
@@ -89,8 +89,8 @@ void lista::borrar(int x) {
 		else nuevo = nuevo->siguiente; 
 	}
 }
-void lista::mostrar() {
-	nodo *nuevo;
+void listaC::mostrar() {
+	nodoC *nuevo;
 	nuevo = inicio;
 	while (nuevo)
 	{
@@ -102,8 +102,8 @@ void lista::mostrar() {
 		nuevo = nuevo->siguiente;
 	}
 }
-void lista::mostrarUno(int x) {
-	nodo *nuevo;
+void listaC::mostrarUno(int x) {
+	nodoC *nuevo;
 	nuevo = inicio;
 	bool con = false;
 	while (con!=true)
@@ -122,8 +122,8 @@ void lista::mostrarUno(int x) {
 		else nuevo = nuevo->siguiente;
 	}
 }
-void lista::modificar(int x) {
-	nodo *nuevo;
+void listaC::modificar(int x) {
+	nodoC *nuevo;
 	nuevo = inicio;
 	bool con = false;
 
@@ -146,11 +146,15 @@ void lista::modificar(int x) {
 }
 
 void carros::registrarCarros(){
-	char mar,mode;
+	string s;
 	int a;
 	float prec;
 	cout << "Ingrese el modelo: ";
+	fflush(stdin); getline(cin,s); setModelo(s);
 	cout << "Ingrese la marca: ";
+	fflush(stdin); getline(cin,s); setMarca(s);
 	cout << "Ingrese el aa: ";
+	fflush(stdin); cin >> a; setAa(a);
 	cout << "Ingrese el precio: ";
+	fflush(stdin); cin >> prec; setPrecio(prec);
 }
