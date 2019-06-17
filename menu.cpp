@@ -7,11 +7,12 @@ int main()
 {
 	int opc=0;
 	char cod[40];
-	//Carros car;
 	Empleados emp;
 	lista listE;
-	listE.CargarArchivo();
 	Cliente client;
+	ListaCliente listC;
+	listE.CargarArchivo();
+	listC.CargarArchivo();
 	do{
 		cout<<"Que desea realizar?\n\n1.-Registrar\n2.-Consultar\n3.-Modificar\n4.-Eliminar\n5.-Salir\n\n";
 		cin>>opc;
@@ -37,7 +38,9 @@ int main()
 								listE.insertar(emp);
 								break;
 							case 3:
-								//client.registrarCliente();
+								system("cls");
+								client.registrarCliente();
+								listC.Insertar(client);
 								break;
 							case 4:
 								//fact.registrarfactura();
@@ -64,17 +67,98 @@ int main()
 						switch(opc2)
 						{
 							case 1:
-								system("cls");
+								{
+									system("cls");
+									int opc3=0;
+									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cin>>opc3;
+									if(opc3==1)
+									{
+										
+									}
+									else if(opc==2)
+									{
+										
+									}
+									else
+									{
+										cout<<"Opcion Invalida"<<endl;
+									}
+								}
+								getch();
 								break;
 							case 2:
-								system("cls");
-								listE.mostrar();
+								{
+									system("cls");
+									int opc3=0;
+									char nomm[20];
+									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cin>>opc3;
+									if(opc3==1)
+									{
+										cout<<"Ingrese el nombre que quiere consultar\n\n";
+										cin>>nomm;
+										listE.mostrarUno(nomm);
+									}
+									else if(opc==2)
+									{
+										listE.mostrar();
+									}
+									else
+									{
+										cout<<"Opcion Invalida"<<endl;
+									}
+								}
 								getch();
 								break;
 							case 3:
-								system("cls");
+								{
+									system("cls");
+									int opc3=0;
+									char nomm[20];
+									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cin>>opc3;
+									if(opc3==1)
+									{
+										cout<<"Ingrese el nombre que quiere consultar\n\n";
+										cin>>nomm;
+										listC.MostrarUno(nomm);
+									}
+									else if(opc==2)
+									{
+										listC.Mostrar();
+									}
+									else
+									{
+										cout<<"Opcion Invalida"<<endl;
+									}
+								}
+								getch();
 								break;
 							case 4:
+								{
+									system("cls");
+									int opc3=0;
+									char nomm[20];
+									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cin>>opc3;
+									if(opc3==1)
+									{
+										cout<<"Ingrese el nombre que quiere consultar\n\n";
+										cin>>nomm;
+										
+									}
+									else if(opc==2)
+									{
+										
+									}
+									else
+									{
+										cout<<"Opcion Invalida"<<endl;
+									}
+								}
+								getch();
+								break;
 								system("cls");
 								break;
 							case 5:
@@ -108,6 +192,9 @@ int main()
 								break;
 							case 3:
 								system("cls");
+								cout<<"Ingrese el nombre del cliente que desea modificar\n\n";
+								cin>>cod;
+								listC.Modificar(cod);
 								break;
 							case 4:
 								system("cls");
@@ -137,11 +224,14 @@ int main()
 								break;
 							case 2:
 								system("cls");
-								cout<<"Ingrese el nombre del empleado que desea modificar\n\n";
+								cout<<"Ingrese el nombre del empleado que desea eliminar\n\n";
 								cin>>cod;
 								listE.borrar(cod);
 								break;
 							case 3:
+								cout<<"Ingrese el nombre del cliente que desea eliminar\n\n";
+								cin>>cod;
+								listC.Borrar(cod);
 								system("cls");
 								break;
 							case 4:

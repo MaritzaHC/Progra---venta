@@ -46,8 +46,7 @@ class nodo {
 			valor(*v), anterior(ant), siguiente(sig) {}
 			
 	private:
-		nodo(){
-		}
+		nodo(){	}
 		Empleados valor;
 		nodo *anterior;
 		nodo *siguiente;
@@ -57,16 +56,14 @@ class lista {
 public:
 	int Codigo,Longitud;
 	nodo *Lista;
-	lista(nodo *ini = NULL, nodo *fin = NULL) :inicio(ini), finali(fin) {
-	Codigo=0;
-	}
+	lista(nodo *ini = NULL, nodo *fin = NULL) :inicio(ini), finali(fin) {Codigo=0;}
 	nodo *inicio;
 	nodo *finali;
 	void insertar(Empleados x);
 	void InsertarEmpleado(nodo p);
 	void borrar(char *x);
 	void mostrar();
-	void mostrarUno(int x);
+	void mostrarUno(char *x);
 	void modificar(char *x);
 	void CargarArchivo();
 	void RecargarArchivo();
@@ -167,17 +164,17 @@ void lista::mostrar() {
 		nuevo = nuevo->siguiente;
 	}
 }
-void lista::mostrarUno(int x) {
+void lista::mostrarUno(char *x) {
 	nodo *nuevo;
 	nuevo = inicio;
 	bool con = false;
 	while (con!=true)
 	{
-		if (nuevo->valor.Codigo == x) {
-			cout << nuevo->valor.getNombre() << endl;
-			cout << nuevo->valor.getEdad() << endl;
-			cout << nuevo->valor.getSueldo() << endl;
-			cout << nuevo->valor.getComisiones() << endl;
+		if (strcmp(nuevo->valor.getNombre(),x)==0) {
+			cout <<"Nombre :\t"<< nuevo->valor.getNombre() << endl;
+			cout <<"Edad :\t"<< nuevo->valor.getEdad() << endl;
+			cout <<"Sueldo :\t"<< nuevo->valor.getSueldo() << endl;
+			cout <<"Comision :\t"<< nuevo->valor.getComisiones() << endl;
 			con = true;
 		}
 		else if (nuevo->siguiente == NULL) {
