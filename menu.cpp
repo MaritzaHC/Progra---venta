@@ -85,7 +85,7 @@ int main()
 									system("cls");
 									int opc3=0;
 									char nomm[20];
-									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cout<<"Como desea realizar su consulta?\n1.-Por Nombre\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
 									if(opc3==1)
 									{
@@ -109,7 +109,7 @@ int main()
 									system("cls");
 									int opc3=0;
 									char nomm[20];
-									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cout<<"Como desea realizar su consulta?\n1.-Por Nombre\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
 									if(opc3==1)
 									{
@@ -133,7 +133,7 @@ int main()
 									system("cls");
 									int opc3=0;
 									char nomm[20];
-									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cout<<"Como desea realizar su consulta?\n1.-Por Nombre\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
 									if(opc3==1)
 									{
@@ -183,7 +183,7 @@ int main()
 								system("cls");
 									int opc3=0;
 									int cosa;
-									cout<<"Como desea realizar su consulta?1.-Por id\n2.-Mostrar Todos\n\n";
+									cout<<"Como desea realizar su consulta?\n1.-Por id\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
 									if(opc3==1)
 									{
