@@ -1,53 +1,53 @@
 #include "../todo.h"
-class Empleados
-{
+class Empleados{
 	private:
 		int Edad;
 		float Sueldo,comisiones;
-		string Nombre;
+		char Nombre[20];
 	public:
+		int Codigo;
 		Empleados(){}
 		Empleados *siguiente,*anterior;
-		int Codigo;
 		void setCodigo(int c){ Codigo=c;		}
 		void setEdad(int e){ Edad=e;		}
 		void setSueldo(float s) {Sueldo= s;		}
 		void setComisiones(float c) { comisiones = c;		}
-		void setNombre(string n){ Nombre = n;		}
+		void setNombre(char *n){ strcpy(Nombre,n);		}
 		int getCodigo(){ return Codigo;		}
 		float getSueldo() {return Sueldo;		}
 		float getComisiones(){ return comisiones;		}
-		string getNombre(){ return Nombre;		}
+		char* getNombre(){ return Nombre;		}
 		int getEdad(){ return Edad;		}
 		void registrarEmpleado();
 		void ConsultarEmpleado();
 		//void eliminarEmpleado();
 		//void modificarEmpleado();
 };
-void Empleados::registrarEmpleado()
-{
+void Empleados::registrarEmpleado(){
 	int edad;
-	string s;
+	char s[20];
 	float sueldo,comision;
-	cout<<"Ingrese el Nombre del Empleado"<<endl; fflush(stdin); getline(cin,s); setNombre(s);
+	cout<<"Ingrese el Nombre del Empleado"<<endl; fflush(stdin); cin>>s; setNombre(s);
 	cout<<"Ingrese la Edad del Empleado"<<endl; fflush(stdin); cin>>edad; setEdad(edad);
 	cout<<"Ingrese el Sueldo del Empleado"<<endl; fflush(stdin); cin>>sueldo; setSueldo(sueldo);
 	cout<<"Ingrese la comision del Empleado"<<endl; fflush(stdin); cin>>comision; setComisiones(comision);
 }
-void Empleados::ConsultarEmpleado()
-{
+void Empleados::ConsultarEmpleado(){
 	cout<<"Nombre :\t"<<getNombre();
 	cout<<"Edad :\t"<<getEdad();
 	cout<<"Sueldo :\t"<<getSueldo();
 	cout<<"Comision :\t"<<getComisiones();
 }
-class nodo 
-{
+class nodo {
 	public:
 		nodo(Empleados v, nodo *ant = NULL, nodo *sig = NULL) :
 			valor(v), anterior(ant), siguiente(sig) {}
+		nodo(Empleados *v, nodo *ant=NULL, nodo *sig = NULL) :
+			valor(*v), anterior(ant), siguiente(sig) {}
+			
 	private:
-		nodo();
+		nodo(){
+		}
 		Empleados valor;
 		nodo *anterior;
 		nodo *siguiente;
@@ -56,16 +56,18 @@ class nodo
 class lista {
 public:
 	int Codigo,Longitud;
-	Empleados *Lista;
-	lista(nodo *ini = NULL, nodo *fin = NULL) :inicio(ini), finali(fin) {}
+	nodo *Lista;
+	lista(nodo *ini = NULL, nodo *fin = NULL) :inicio(ini), finali(fin) {
+	Codigo=0;
+	}
 	nodo *inicio;
 	nodo *finali;
 	void insertar(Empleados x);
-	void InsertarEmpleado(Empleados *p);
-	void borrar(int x);
+	void InsertarEmpleado(nodo p);
+	void borrar(char *x);
 	void mostrar();
 	void mostrarUno(int x);
-	void modificar(int x);
+	void modificar(char *x);
 	void CargarArchivo();
 	void RecargarArchivo();
 };
@@ -100,26 +102,15 @@ void lista::insertar(Empleados x) {
 	}
 	entrada.close();
 }
-void lista::borrar(int x) {
-	ofstream entrada;
-	entrada.open("tempEmpleado.dat",ios::out|ios::binary);
-	ifstream salida;
-	salida.open("Empleado.dat",ios::in|ios::binary);
-	if (salida.fail()||entrada.fail())
-	{
-		cout<<"error al abrir el archivo"<<endl;
-		_getch();                  
-	}
-	else
-	{
+void lista::borrar(char *x) {
 		nodo *nuevo;
 		nuevo = inicio;
 		bool con = false;
-		while (con != true)
+		while (con!=true)
 		{
-			if (nuevo->valor.Codigo == x) 
+			if (strcmp(nuevo->valor.getNombre(),x)==0)
 			{
-				entrada.write((char *)nuevo,sizeof(Empleados));
+				
 				if (nuevo == inicio) {
 					inicio->siguiente->anterior = NULL;
 					inicio = inicio->siguiente;
@@ -134,54 +125,44 @@ void lista::borrar(int x) {
 				}
 				con = true;
 			}
-			if (con == true) delete nuevo;
+			if (con == true)delete nuevo;
 			else if (nuevo->siguiente == NULL) {
-				entrada.write((char *)nuevo,sizeof(Empleados));
 				con = true; 
 				cout << "No se pudo borrar" << endl;
 			}
-			else nuevo = nuevo->siguiente; 
-		}
+			else{
+				nuevo = nuevo->siguiente;
+			} 
+		
+		
 	}
-	salida.close();
-	entrada.close();
-	remove("Empleado.dat");
-	rename("tempEmpleado.dat","Empleado.dat");
+RecargarArchivo();
 }
-void lista::InsertarEmpleado(Empleados *p)
-{
-	if(Lista==NULL)
-	{
-		Lista=p;
-		p->siguiente=p;
-		Longitud=1;
-		Codigo=1;
-	}
-	else
-	{
-		Empleados *x;
-		p->siguiente=Lista;
-		x=Lista;
-		while(x->siguiente!=Lista)
+void lista::InsertarEmpleado(nodo p){
+	nodo *nuevo;
+		if (inicio == NULL) 
 		{
-			x=x->siguiente;
+			nuevo = new nodo(p);
+			inicio = nuevo;
+			finali = nuevo;
 		}
-		x->siguiente=p;
-	}
-	Lista=p;
-	Longitud++; 
-	Codigo++;
-	return;
+		else 
+		{
+			nuevo = new nodo(p);
+			finali->siguiente = nuevo;
+			nuevo->anterior = finali;
+			finali = nuevo;
+		}
 }
 void lista::mostrar() {
 	nodo *nuevo;
 	nuevo = inicio;
-	while (nuevo)
+	while (nuevo!=NULL)
 	{
-		cout << nuevo->valor.getNombre()<< endl;
-		cout << nuevo->valor.getEdad() << endl;
-		cout << nuevo->valor.getSueldo() << endl;
-		cout << nuevo->valor.getComisiones() << endl;
+		cout <<"Nombre :\t"<< nuevo->valor.getNombre()<< endl;
+		cout <<"Edad :\t"<< nuevo->valor.getEdad() << endl;
+		cout <<"Sueldo :\t"<< nuevo->valor.getSueldo() << endl;
+		cout <<"Comision :\t"<< nuevo->valor.getComisiones() << endl;
 		cout << "--------------------------------"<<endl;
 		nuevo = nuevo->siguiente;
 	}
@@ -206,17 +187,17 @@ void lista::mostrarUno(int x) {
 		else nuevo = nuevo->siguiente;
 	}
 }
-void lista::modificar(int x) {
+void lista::modificar(char *x) {
 	nodo *nuevo;
 	nuevo = inicio;
 	bool con = false;
-	string nom;
+	char nom[20];
 	int ed;
 	float cam;
 
 	while (con != true)
 	{
-		if (nuevo->valor.Codigo == x) {
+		if (strcmp(nuevo->valor.getNombre(),x)==0) {
 			cout << "Ingrese el Nombre" << endl;
 			cin >> nom;
 			nuevo->valor.setNombre(nom);
@@ -240,7 +221,7 @@ void lista::modificar(int x) {
 	}
 }
 void lista::CargarArchivo(){
-	Empleados *p[100];
+	nodo p[100];
 	ifstream salida;
      salida.open("Empleado.dat",ios::in|ios::binary);
      int x;
@@ -254,12 +235,11 @@ void lista::CargarArchivo(){
      {
      int nreg;
      salida.seekg(0,ios::end);
-	 nreg=salida.tellg()/sizeof(Empleados);
+	 nreg=salida.tellg()/sizeof(nodo);
      salida.seekg(0);  
      for( x=0;x<nreg;x++)
               {
-				  p[x]=new Empleados();
-				  salida.read((char *)p[x],sizeof(Empleados));	
+				  salida.read((char *)&p[x],sizeof(nodo));	
 				  InsertarEmpleado(p[x]);
               }
 	 if(x>0){
@@ -276,17 +256,15 @@ void lista::RecargarArchivo(){
 	entrada.open("tempEmpleado.dat",ios::out|ios::binary);
 	ifstream salida;
 	salida.open("Empleado.dat",ios::in|ios::binary);
-	Empleados *x;
-	if(Lista!=NULL)
-	{
-		x=Lista;
-		while(x->siguiente!=Lista)
+	nodo *nuevo;
+	nuevo=inicio;
+		while(nuevo!=NULL)
 		{
-			entrada.write((char *)x,sizeof(Empleados));
-			x=x->siguiente;
+			entrada.write((char *)nuevo,sizeof(nodo));
+			nuevo=nuevo->siguiente;
 		}
-		entrada.write((char *)x,sizeof(Empleados));
-	}
+		entrada.close();
+		salida.close();
 	remove("Empleado.dat");
 	rename("tempEmpleado.dat","Empleado.dat");
 	entrada.close();

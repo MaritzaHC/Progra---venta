@@ -6,9 +6,11 @@
 int main()
 {
 	int opc=0;
+	char cod[40];
 	//Carros car;
 	Empleados emp;
 	lista listE;
+	listE.CargarArchivo();
 	Cliente client;
 	do{
 		cout<<"Que desea realizar?\n\n1.-Registrar\n2.-Consultar\n3.-Modificar\n4.-Eliminar\n5.-Salir\n\n";
@@ -67,6 +69,7 @@ int main()
 							case 2:
 								system("cls");
 								listE.mostrar();
+								getch();
 								break;
 							case 3:
 								system("cls");
@@ -99,6 +102,9 @@ int main()
 								break;
 							case 2:
 								system("cls");
+								cout<<"Ingrese el nombre del empleado que desea modificar\n\n";
+								cin>>cod;
+								listE.modificar(cod);
 								break;
 							case 3:
 								system("cls");
@@ -131,6 +137,9 @@ int main()
 								break;
 							case 2:
 								system("cls");
+								cout<<"Ingrese el nombre del empleado que desea modificar\n\n";
+								cin>>cod;
+								listE.borrar(cod);
 								break;
 							case 3:
 								system("cls");
