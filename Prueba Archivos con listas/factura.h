@@ -2,7 +2,7 @@
 
 class factura{
     private:
-        char cliente[30];
+        string cliente;
         int cant;
         int idCarro;
         float precio;
@@ -11,7 +11,7 @@ class factura{
         float comicion;
     public:
         int id;
-        char getCliente(){return cliente;}
+        string getCliente(){return cliente;}
         int getCant(){return cant;}
         int getIdCarro(){return idCarro;}
         float getPrecio(){return precio;}
@@ -25,48 +25,50 @@ class factura{
         void setPrecio(float dato){precio= dato;}
         void setTotal(float dato){total= dato;}
         void setIdVendedor(int dato){idVendedor= dato;}
-        void setComicion(float dato){comicion= dato;}       
+        void setComicion(float dato){comicion= dato;}     
+		
+		void registrarFactura();  
 
 };
-class nodo {
+class nodoF {
 public:
-	nodo(factura v, nodo *ant = NULL, nodo *sig = NULL) :
+	nodoF(factura v, nodoF *ant = NULL, nodoF *sig = NULL) :
 		valor(v), anterior(ant), siguiente(sig) {}
 
 private:
 	factura valor;
-	nodo *anterior;
-	nodo *siguiente;
+	nodoF *anterior;
+	nodoF *siguiente;
 
-	friend class lista;
+	friend class listaF;
 };
-class lista {
+class listaF {
 public:
-	lista(nodo *ini = NULL, nodo *fin = NULL) :inicio(ini), finali(fin) {}
-	nodo *inicio;
-	nodo *finali;
+	listaF(nodoF *ini = NULL, nodoF *fin = NULL) :inicio(ini), finali(fin) {}
+	nodoF *inicio;
+	nodoF *finali;
 	void insertar(factura x);
 	void borrar(int x);
 	void mostrar();
 	void mostrarUno(int x);
 };
 
-void lista::insertar(factura x) {
-	nodo *nuevo;
+void listaF::insertar(factura x) {
+	nodoF *nuevo;
 	if (inicio == NULL) {
-		nuevo = new nodo(x, inicio);
+		nuevo = new nodoF(x, inicio);
 		inicio = nuevo;
 		finali = nuevo;
 	}
 	else {
-		nuevo = new nodo(x, finali);
+		nuevo = new nodoF(x, finali);
 		finali->siguiente = nuevo;
 		nuevo->anterior = finali;
 		finali = nuevo;
 	}
 }
-void lista::borrar(int x) {
-	nodo *nuevo;
+void listaF::borrar(int x) {
+	nodoF *nuevo;
 	nuevo = inicio;
 	bool con = false;
 	while (con != true)
@@ -94,8 +96,8 @@ void lista::borrar(int x) {
 		else nuevo = nuevo->siguiente; 
 	}
 }
-void lista::mostrar() {
-	nodo *nuevo;
+void listaF::mostrar() {
+	nodoF *nuevo;
 	nuevo = inicio;
 	while (nuevo)
 	{
@@ -110,8 +112,8 @@ void lista::mostrar() {
 		nuevo = nuevo->siguiente;
 	}
 }
-void lista::mostrarUno(int x) {
-	nodo *nuevo;
+void listaF::mostrarUno(int x) {
+	nodoF *nuevo;
 	nuevo = inicio;
 	bool con = false;
 	while (con!=true)
@@ -132,5 +134,25 @@ void lista::mostrarUno(int x) {
 		}
 		else nuevo = nuevo->siguiente;
 	}
+}
+
+void factura::registrarFactura(){
+	string s;
+	int a;
+	float prec;
+	cout << "Ingrese el cliente: ";
+	fflush(stdin); cin>>a; setCliente(a);
+	cout << "Ingrese la cantidad: ";
+	fflush(stdin); cin>>a; setCant(a);
+	cout << "Ingrese el id carro: ";
+	fflush(stdin); cin >> a; setIdCarro(a);
+	cout << "Ingrese el precio: ";
+	fflush(stdin); cin >> prec; setPrecio(prec);
+	cout << "Ingrese el total: ";
+	fflush(stdin); cin >> prec; setTotal(prec);
+	cout << "Ingrese el id vendedor: ";
+	fflush(stdin); cin >> a; setIdVendedor(a);
+	cout << "Ingrese la comicion: ";
+	fflush(stdin); cin >> prec; setComicion(prec);
 }
 
