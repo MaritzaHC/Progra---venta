@@ -1,0 +1,247 @@
+#include "../todo.h"
+
+class carros{
+    private:
+        char marca[10];
+        char modelo[10];
+        int aa;
+        bool tipo;
+        float precio;
+    public:
+    	int id;
+		carros(){}
+        char* getMarca(){return marca;}
+        char* getModelo(){return modelo;}
+        int getAa(){return aa;}
+        bool getTipo(){return tipo;}
+        float getPrecio(){return precio;}
+        void setMarca(char *dato){strcpy(marca,dato);}
+        void setModelo(char *dato){strcpy(modelo,dato);}
+        void setAa(int dato){aa=dato;}
+        void setTipo(bool dato){tipo=dato;}
+        void setPrecio(float dato){precio=dato;}
+        
+        void registrarCarros();
+};
+class nodoCarro {
+public:
+	nodoCarro(carros v, nodoCarro *ant = NULL, nodoCarro *sig = NULL) :
+		valor(v), anterior(ant), siguiente(sig) {}
+	nodoCarro(carros *v, nodoCarro *ant=NULL, nodoCarro *sig = NULL) :
+			valor(*v), anterior(ant), siguiente(sig) {}
+private:
+	nodoCarro(){}
+	carros valor;
+	nodoCarro *anterior;
+	nodoCarro *siguiente;
+
+	friend class listaCarros;
+};
+class listaCarros {
+public:
+	int id;
+	listaCarros(nodoCarro *ini = NULL, nodoCarro *fin = NULL) :inicio(ini), finali(fin) {id=0;}
+	nodoCarro *inicio;
+	nodoCarro *finali;
+	void insertar(carros x);
+	void InsertarCarros(nodoCarro p);
+	void borrar(char *x);
+	void mostrar();
+	void mostrarUno(char *x);
+	void modificar(char *x);
+	void CargarArchivo();
+	void RecargarArchivo();
+};
+
+void listaCarros::insertar(carros x) {
+	nodoCarro *nuevo;
+	ofstream entrada;
+	entrada.open("carros.dat",ios::out|ios::app|ios::binary);
+	if(entrada.fail()){
+        cout<<"error al crear archivo";
+        _getch();      
+	}  
+	else{
+		if (inicio == NULL) {
+			nuevo = new nodoCarro(x, inicio);
+			entrada.write((char *)nuevo,sizeof(nodoCarro));
+			entrada.close();
+			inicio = nuevo;
+			finali = nuevo;
+		}
+		else {
+			nuevo = new nodoCarro(x, finali);
+			entrada.write((char *)nuevo,sizeof(nodoCarro));
+			entrada.close();
+			finali->siguiente = nuevo;
+			nuevo->anterior = finali;
+			finali = nuevo;
+		}
+	} 
+	entrada.close();
+}
+void listaCarros::borrar(char *x) {
+	nodoCarro *nuevo;
+	nuevo = inicio;
+	bool con = false;
+	while (con != true)
+	{
+		if (strcmp(nuevo->valor.getModelo(),x)==0) {
+			if (nuevo == inicio) {
+				inicio->siguiente->anterior = NULL;
+				inicio = inicio->siguiente;
+			}
+			else if (nuevo == finali) {
+				finali->anterior->siguiente = NULL;
+				finali = finali->anterior;
+			}
+			else {
+				nuevo->anterior->siguiente = nuevo->siguiente;
+				nuevo->siguiente->anterior = nuevo->anterior;
+			}
+			con = true;
+		}
+		if (con == true) delete nuevo;
+		else if (nuevo->siguiente == NULL) {
+			con = true; 
+			cout << "No se pudo borrar" << endl;
+		}
+		else nuevo = nuevo->siguiente; 
+	}
+	RecargarArchivo();
+}
+void listaCarros::InsertarCarros(nodoCarro p){
+	nodoCarro *nuevo;
+		if (inicio == NULL) 
+		{
+			nuevo = new nodoCarro(p);
+			inicio = nuevo;
+			finali = nuevo;
+		}
+		else 
+		{
+			nuevo = new nodoCarro(p);
+			finali->siguiente = nuevo;
+			nuevo->anterior = finali;
+			finali = nuevo;
+		}
+}
+void listaCarros::mostrar() {
+	nodoCarro *nuevo;
+	nuevo = inicio;
+	while (nuevo)
+	{
+		cout << "Marca: \t" << nuevo->valor.getMarca() << endl;
+		cout << "Modelo: \t" << nuevo->valor.getModelo() << endl;
+		cout << "Aa: \t" << nuevo->valor.getAa() << endl;
+		cout << "Precio: \t" << nuevo->valor.getPrecio() << endl;
+		cout << "--------------------------------"<<endl;
+		nuevo = nuevo->siguiente;
+	}
+}
+void listaCarros::mostrarUno(char *x) {
+	nodoCarro *nuevo;
+	nuevo = inicio;
+	bool con = false;
+	while (con!=true)
+	{
+		if (strcmp(nuevo->valor.getModelo(),x)==0) {
+			cout << "Marca: \t" << nuevo->valor.getMarca() << endl;
+			cout << "Modelo: \t" << nuevo->valor.getModelo() << endl;
+			cout << "Aa: \t" << nuevo->valor.getAa() << endl;
+			cout << "Precio: \t" << nuevo->valor.getPrecio() << endl;
+			con = true;
+		}
+		else if (nuevo->siguiente == NULL) {
+			cout << "No se encontro" << endl;
+			con = true;
+		}
+		else nuevo = nuevo->siguiente;
+	}
+}
+void listaCarros::modificar(char *x) {
+	nodoCarro *nuevo;
+	nuevo = inicio;
+	bool con = false;
+
+	float cam;
+
+	while (con != true)
+	{
+		if (strcmp(nuevo->valor.getModelo(),x)==0) {
+			cout << "Ingrese el nuevo precio" << endl;
+			cin >> cam;
+			nuevo->valor.setPrecio(cam);
+			con = true;
+			RecargarArchivo();
+		}
+		else if (nuevo->siguiente == NULL) {
+			cout << "No se encontro" << endl;
+			con = true;
+		}
+		else nuevo = nuevo->siguiente;
+	}
+}
+
+void carros::registrarCarros(){
+	char s[10];
+	int a;
+	float prec;
+	cout << "Ingrese el modelo: ";
+	fflush(stdin); cin>>s; setModelo(s);
+	cout << "Ingrese la marca: ";
+	fflush(stdin); cin>>s; setMarca(s);
+	cout << "Ingrese el aa: ";
+	fflush(stdin); cin >> a; setAa(a);
+	cout << "Ingrese el precio: ";
+	fflush(stdin); cin >> prec; setPrecio(prec);
+}
+void listaCarros::CargarArchivo(){
+	nodoCarro p[100];
+	ifstream salida;
+     salida.open("carros.dat",ios::in|ios::binary);
+     int x;
+     if (salida.fail())
+     {
+     cout<<"No existen datos de carros guardados"<<endl;
+     _getch();      
+	 system("cls");
+     }
+     else       
+     {
+     int nreg;
+     salida.seekg(0,ios::end);
+	 nreg=salida.tellg()/sizeof(nodoCarro);
+     salida.seekg(0);  
+     for( x=0;x<nreg;x++)
+              {
+				  salida.read((char *)&p[x],sizeof(nodoCarro));	
+				  InsertarCarros(p[x]);
+              }
+	 if(x>0){
+	 cout<<"Datos de carros cargados :3 :"<<x<<endl;
+	  id=id+(2*x);
+	 }
+     _getch();
+	 system("cls");
+     }
+	 salida.close();
+}
+void listaCarros::RecargarArchivo(){
+	ofstream entrada;
+	entrada.open("tempCarros.dat",ios::out|ios::binary);
+	ifstream salida;
+	salida.open("carros.dat",ios::in|ios::binary);
+	nodoCarro *nuevo;
+	nuevo=inicio;
+		while(nuevo!=NULL)
+		{
+			entrada.write((char *)nuevo,sizeof(nodoCarro));
+			nuevo=nuevo->siguiente;
+		}
+		entrada.close();
+		salida.close();
+	remove("carros.dat");
+	rename("tempCarros.dat","carros.dat");
+	entrada.close();
+}

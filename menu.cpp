@@ -1,16 +1,26 @@
 #include"todo.h"
 #include"clases/Cliente.h"
 #include"clases/Empleados.h"
-//#include"clases/carros.h"
-//#include"clases/factura.h"
+#include"clases/carros.h"
+#include"clases/factura.h"
 int main()
 {
 	int opc=0;
 	char cod[40];
+	int x;
+	
+	carros car;
+	factura fac;
 	Empleados emp;
-	lista listE;
 	Cliente client;
+	
+	lista listE;
+	listaFactura listaF;
+	listaCarros listaCa;
 	ListaCliente listC;
+	
+	listaF.CargarArchivo();
+	listaCa.CargarArchivo();
 	listE.CargarArchivo();
 	listC.CargarArchivo();
 	do{
@@ -30,7 +40,9 @@ int main()
 						switch(opc2)
 						{
 							case 1:
-								//car.registrarCarros();
+								system("cls");
+								car.registrarCarros();
+								listaCa.insertar(car);
 								break;
 							case 2:
 								system("cls");
@@ -43,7 +55,9 @@ int main()
 								listC.Insertar(client);
 								break;
 							case 4:
-								//fact.registrarfactura();
+								system("cls");
+								fac.registrarFactura();
+								listaF.insertar(fac);
 								break;
 							case 5:
 								system("cls");
@@ -70,15 +84,18 @@ int main()
 								{
 									system("cls");
 									int opc3=0;
+									char nomm[20];
 									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
 									if(opc3==1)
 									{
-										
+										cout << "Ingrese el modelo que quiere consultar\n\n";
+										cin >> nomm;
+										listaCa.mostrarUno(nomm);
 									}
 									else if(opc==2)
 									{
-										
+										listaCa.mostrar();
 									}
 									else
 									{
@@ -144,13 +161,13 @@ int main()
 									cin>>opc3;
 									if(opc3==1)
 									{
-										cout<<"Ingrese el nombre que quiere consultar\n\n";
-										cin>>nomm;
-										
+										cout<<"Ingrese la ide de lafactura que quiere consultar\n\n";
+										cin>>x;
+										listaF.mostrarUno(x);
 									}
 									else if(opc==2)
 									{
-										
+										listaF.mostrar();
 									}
 									else
 									{
@@ -162,6 +179,28 @@ int main()
 								system("cls");
 								break;
 							case 5:
+								{
+								system("cls");
+									int opc3=0;
+									int cosa;
+									cout<<"Como desea realizar su consulta?1.-Por id\n2.-Mostrar Todos\n\n";
+									cin>>opc3;
+									if(opc3==1)
+									{
+										cout << "Ingrese el id de la factura que quiere consultar\n\n";
+										cin >> cosa;
+										listaF.mostrarUno(cosa);
+									}
+									else if(opc==2)
+									{
+										listaF.mostrar();
+									}
+									else
+									{
+										cout<<"Opcion Invalida"<<endl;
+									}
+								}
+								getch();
 								system("cls");
 								break;
 							default:
@@ -177,11 +216,14 @@ int main()
 					int opc2=0;
 					do{
 						system("cls");
-						cout<<"Que desea modificar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
+						cout<<"Que desea modificar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Regresar"<<endl;
 						cin>>opc2;
 						switch(opc2)
 						{
 							case 1:
+								cout << "ingrese el modelo del carro que desa modificar\n\n";
+								cin>>cod;
+								listaCa.modificar(cod);
 								system("cls");
 								break;
 							case 2:
@@ -199,13 +241,10 @@ int main()
 							case 4:
 								system("cls");
 								break;
-							case 5:
-								system("cls");
-								break;
 							default:
 								cout<<"Opcion inexistente"<<endl;
 						}
-					}while(opc2!=5);
+					}while(opc2!=4);
 				}
 				break;
 			case 4:
@@ -221,6 +260,9 @@ int main()
 						{
 							case 1:
 								system("cls");
+								cout<<"Ingrese el modelo del carro que desea eliminar\n\n";
+								cin>>cod;
+								listaCa.borrar(cod);
 								break;
 							case 2:
 								system("cls");
@@ -236,6 +278,9 @@ int main()
 								break;
 							case 4:
 								system("cls");
+								cout<<"Ingrese el id de la facuta que desea eliminar\n\n";
+								cin>>x;
+								listaF.borrar(x);
 								break;
 							case 5:
 								system("cls");
