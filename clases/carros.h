@@ -63,7 +63,7 @@ public:
 void listaCarros::insertar(carros x) {
 	nodoCarro *nuevo;
 	ofstream entrada;
-	entrada.open("carros.dat",ios::out|ios::app|ios::binary);
+	entrada.open("carros.dat",ios::out|ios::app|ios::binary);//Creamos un archivo binario cliente con nombre carros.dat
 	if(entrada.fail()){
         cout<<"error al crear archivo";
         _getch();      
@@ -71,15 +71,15 @@ void listaCarros::insertar(carros x) {
 	else{
 		if (inicio == NULL) {
 			nuevo = new nodoCarro(x, inicio);
-			entrada.write((char *)nuevo,sizeof(nodoCarro));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(nodoCarro));//Escritura en el archivo carros.dat con la informacion de la clase carros
+			entrada.close();//Cierra Archivo carros.dat
 			inicio = nuevo;
 			finali = nuevo;
 		}
 		else {
 			nuevo = new nodoCarro(x, finali);
-			entrada.write((char *)nuevo,sizeof(nodoCarro));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(nodoCarro));//Escritura en el archivo carros.dat con la informacion de la clase carros
+			entrada.close();//Cierra Archivo carros.dat
 			finali->siguiente = nuevo;
 			nuevo->anterior = finali;
 			finali = nuevo;
@@ -212,7 +212,7 @@ void carros::registrarCarros(){
 void listaCarros::CargarArchivo(){
 	nodoCarro p[100];
 	ifstream salida;
-     salida.open("carros.dat",ios::in|ios::binary);
+     salida.open("carros.dat",ios::in|ios::binary);//Abrimos archivo carros.dat para cargar los datos en el programa
      int x;
      if (salida.fail())
      {
@@ -223,28 +223,27 @@ void listaCarros::CargarArchivo(){
      else       
      {
      int nreg;
-     salida.seekg(0,ios::end);
-	 nreg=salida.tellg()/sizeof(nodoCarro);
+     salida.seekg(0,ios::end);//Manda la posicion del siguiente caracter extraido desde la entrada
+	 nreg=salida.tellg()/sizeof(nodoCarro);//Me dice cuantos son los elementos que tiene el archivo
      salida.seekg(0);  
      for( x=0;x<nreg;x++)
               {
-				  salida.read((char *)&p[x],sizeof(nodoCarro));	
-				  InsertarCarros(p[x]);
+				  salida.read((char *)&p[x],sizeof(nodoCarro));	//Lee el nodo y lo copia a p
+				  InsertarCarros(p[x]);// Manda como parametros p y lo inserta al archivo
               }
 	 if(x>0){
 	 cout<<"Datos de carros cargados :3 :"<<x<<endl;
 	  id=id+(2*x);
 	 }
-     _getch();
 	 system("cls");
      }
-	 salida.close();
+	 salida.close();//Cierra el archivo
 }
 void listaCarros::RecargarArchivo(){
 	ofstream entrada;
-	entrada.open("tempCarros.dat",ios::out|ios::binary);
+	entrada.open("tempCarros.dat",ios::out|ios::binary);//Creacion de archivo temporal binario tempCarros.dat
 	ifstream salida;
-	salida.open("carros.dat",ios::in|ios::binary);
+	salida.open("carros.dat",ios::in|ios::binary);//Abre archivo carros.dat
 	nodoCarro *nuevo;
 	nuevo=inicio;
 		while(nuevo!=NULL)
@@ -254,7 +253,7 @@ void listaCarros::RecargarArchivo(){
 		}
 		entrada.close();
 		salida.close();
-	remove("carros.dat");
-	rename("tempCarros.dat","carros.dat");
+	remove("carros.dat");//Eliminacion del archivo carros.dat
+	rename("tempCarros.dat","carros.dat");//Cambio de nombre de tempCarros.dat a carros.dat
 	entrada.close();
 }

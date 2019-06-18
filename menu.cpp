@@ -3,7 +3,7 @@
 	Author: Hugo Jessael Jirano Macias 18310154
 			Maritza Hernandez Contreras 18310135
 	Date: 17/06/19 19:11
-	Description: El menu de todo el programa
+	Description: El menu central
 */
 
 #include"todo.h"
@@ -17,11 +17,12 @@ int main()
 	cout<<"                                       BIENVENIDO"<<endl;
 	cout<<"                               A la agencia AutosVendeYa"<<endl;
 	cout<<"------------------------------------------------------------------------------------------------"<<endl<<endl;
-	cout<<"Este programa te permite ingresar:"<<endl;
-	cout<<" * Carros"<<endl<<" * Clientes"<<endl<<" * Empleados"<<endl<<" * Facturas"<<endl<<endl;
-	cout<<"Programa elavorado por: "<<endl;
+	cout<<"Programa elaborado por: "<<endl;
 	cout<<"Maritza Hernandez Contreras"<<endl<<"Hugo Jessael Jirano Macias"<<endl<<endl;
 	cout<<"Grupo: 2F";
+	cout<<"Este programa te permite ingresar:"<<endl;
+	cout<<" * Carros"<<endl<<" * Clientes"<<endl<<" * Empleados"<<endl<<" * Facturas"<<endl<<endl;
+	cout<<"Presione una tecla para continuar"<<endl;
 	getch();
 	system("cls");
 	int opc=0;

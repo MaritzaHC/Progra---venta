@@ -73,7 +73,7 @@ void listaFactura::insertar(factura x) {
 	ofstream entrada;
 	x.id=cantidad;
 	cantidad++;
-	entrada.open("factura.dat",ios::out|ios::app|ios::binary);
+	entrada.open("factura.dat",ios::out|ios::app|ios::binary);//Creamos un archivo binario cliente con nombre factura.dat
 	if(entrada.fail()){
         cout<<"error al crear archivo";
         _getch();      
@@ -81,15 +81,15 @@ void listaFactura::insertar(factura x) {
 	else{
 		if (inicio == NULL) {
 			nuevo = new nodoFactura(x, inicio);
-			entrada.write((char *)nuevo,sizeof(nodoFactura));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(nodoFactura));//Escritura en el archivo factura.dat con la informacion de la clase factura
+			entrada.close();//Cierra Archivo factura.dat
 			inicio = nuevo;
 			finali = nuevo;
 		}
 		else {
 			nuevo = new nodoFactura(x, finali);
-			entrada.write((char *)nuevo,sizeof(nodoFactura));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(nodoFactura));//Escritura en el archivo factura.dat con la informacion de la clase factura
+			entrada.close();//Cierra Archivo factura.dat
 			finali->siguiente = nuevo;
 			nuevo->anterior = finali;
 			finali = nuevo;
@@ -214,7 +214,7 @@ void factura::registrarFactura(){
 void listaFactura::CargarArchivo(){
 	nodoFactura p[100];
 	ifstream salida;
-     salida.open("factura.dat",ios::in|ios::binary);
+     salida.open("factura.dat",ios::in|ios::binary);//Abrimos archivo factura.dat para cargar los datos en el programa
      int x;
      if (salida.fail())
      {
@@ -226,29 +226,28 @@ void listaFactura::CargarArchivo(){
      else       
      {
      int nreg;
-     salida.seekg(0,ios::end);
-	 nreg=salida.tellg()/sizeof(nodoFactura);
+     salida.seekg(0,ios::end);//Manda la posicion del siguiente caracter extraido desde la entrada
+	 nreg=salida.tellg()/sizeof(nodoFactura);//Me dice cuantos son los elementos que tiene el archivo
      salida.seekg(0);  
      for( x=0;x<nreg;x++)
               {
-				  salida.read((char *)&p[x],sizeof(nodoFactura));	
-				  Insertarfactura(p[x]);
+				  salida.read((char *)&p[x],sizeof(nodoFactura));	//Lee el nodo y lo copia a p
+				  Insertarfactura(p[x]); // Manda como parametros p y lo inserta al archivo
               }
 	 if(x>0){
 	 cout<<"Datos de factura cargados :3 :"<<x<<endl;
 	  id=id+(2*x);
 	 }
-     _getch();
 	 cantidad=finali->valor.id+1;
 	 system("cls");
      }
-	 salida.close();
+	 salida.close(); //Cierra el archivo
 }
 void listaFactura::RecargarArchivo(){
 	ofstream entrada;
-	entrada.open("tempfactura.dat",ios::out|ios::binary);
+	entrada.open("tempfactura.dat",ios::out|ios::binary);//Creacion de archivo temporal binario tempfactura.dat
 	ifstream salida;
-	salida.open("factura.dat",ios::in|ios::binary);
+	salida.open("factura.dat",ios::in|ios::binary);//Abre archivo factura.dat
 	nodoFactura *nuevo;
 	nuevo=inicio;
 		while(nuevo!=NULL)
@@ -258,7 +257,7 @@ void listaFactura::RecargarArchivo(){
 		}
 		entrada.close();
 		salida.close();
-	remove("factura.dat");
-	rename("tempfactura.dat","factura.dat");
-	entrada.close();
+	remove("factura.dat");//Eliminacion del archivo factura.dat
+	rename("tempfactura.dat","factura.dat");//Cambio de nombre de tempfactura.dat a factura.dat
+	entrada.close(); //Cierra el archivo
 }

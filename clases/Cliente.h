@@ -72,7 +72,7 @@ public:
 void ListaCliente::Insertar(Cliente x) {
 	NodoCliente *nuevo;
 	ofstream entrada;
-	entrada.open("Cliente.dat",ios::out|ios::app|ios::binary);
+	entrada.open("Cliente.dat",ios::out|ios::app|ios::binary);//Creamos un archivo binario cliente con nombre Cliente.dat
 	if(entrada.fail())
 	{
         cout<<"error al crear archivo";
@@ -83,16 +83,16 @@ void ListaCliente::Insertar(Cliente x) {
 		if (inicio == NULL) 
 		{
 			nuevo = new NodoCliente(x, inicio);
-			entrada.write((char *)nuevo,sizeof(NodoCliente));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(NodoCliente));//Escritura en el archivo Cliente.dat con la informacion de la clase Cliente
+			entrada.close();//Cierra Archivo Cliente.dat
 			inicio = nuevo;
 			finali = nuevo;
 		}
 		else 
 		{
 			nuevo = new NodoCliente(x, finali);
-			entrada.write((char *)nuevo,sizeof(NodoCliente));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(NodoCliente));//Escritura en el archivo Cliente.dat con la informacion de la clase Cliente
+			entrada.close();//Cierra Archivo Cliente.dat
 			finali->siguiente = nuevo;
 			nuevo->anterior = finali;
 			finali = nuevo;
@@ -221,7 +221,7 @@ void ListaCliente::Modificar(char *x) {
 void ListaCliente::CargarArchivo(){
 	 NodoCliente p[100];
 	 ifstream salida;
-     salida.open("Cliente.dat",ios::in|ios::binary);
+     salida.open("Cliente.dat",ios::in|ios::binary);//Abrimos archivo Cliente.dat para cargar los datos en el programa
      int x;
      if (salida.fail())
      {
@@ -232,28 +232,27 @@ void ListaCliente::CargarArchivo(){
      else       
      {
      int nreg;
-     salida.seekg(0,ios::end);
-	 nreg=salida.tellg()/sizeof(NodoCliente);
+     salida.seekg(0,ios::end);//Manda la posicion del siguiente caracter extraido desde la entrada
+	 nreg=salida.tellg()/sizeof(NodoCliente);//Me dice cuantos son los elementos que tiene el archivo
      salida.seekg(0);  
      for( x=0;x<nreg;x++)
               {
-				  salida.read((char *)&p[x],sizeof(NodoCliente));	
-				  InsertarCliente(p[x]);
+				  salida.read((char *)&p[x],sizeof(NodoCliente));	//Lee el nodo y lo copia a p
+				  InsertarCliente(p[x]); // Manda como parametros p y lo inserta al archivo
               }
 	 if(x>0){
 	 cout<<"Datos de Clientes cargados :3 :"<<x<<endl;
 	  Codigo=Codigo+(2*x);
 	 }
-     _getch();
 	 system("cls");
      }
-	 salida.close();
+	 salida.close(); //Cierra el archivo
 }
 void ListaCliente::RecargarArchivo(){
 	ofstream entrada;
-	entrada.open("tempCliente.dat",ios::out|ios::binary);
+	entrada.open("tempCliente.dat",ios::out|ios::binary);//Creacion de archivo temporal binario tempCliente.dat
 	ifstream salida;
-	salida.open("Cliente.dat",ios::in|ios::binary);
+	salida.open("Cliente.dat",ios::in|ios::binary);//Abre archivo Cliente.dat
 	NodoCliente *nuevo;
 	nuevo=inicio;
 		while(nuevo!=NULL)
@@ -263,7 +262,7 @@ void ListaCliente::RecargarArchivo(){
 		}
 		entrada.close();
 		salida.close();
-	remove("Cliente.dat");
-	rename("tempCliente.dat","Cliente.dat");
+	remove("Cliente.dat");//Eliminacion del archivo Cliente.dat
+	rename("tempCliente.dat","Cliente.dat");//Cambio de nombre de tempCliente.dat a Cliente.dat
 	entrada.close();
 }

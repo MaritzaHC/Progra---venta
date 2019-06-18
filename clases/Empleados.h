@@ -78,7 +78,7 @@ public:
 void lista::insertar(Empleados x) {
 	nodo *nuevo;
 	ofstream entrada;
-	entrada.open("Empleado.dat",ios::out|ios::app|ios::binary);//
+	entrada.open("Empleado.dat",ios::out|ios::app|ios::binary);//Creamos un archivo binario cliente con nombre Empleado.dat
 	if(entrada.fail())
 	{
         cout<<"error al crear archivo";
@@ -89,16 +89,16 @@ void lista::insertar(Empleados x) {
 		if (inicio == NULL) 
 		{
 			nuevo = new nodo(x, inicio);
-			entrada.write((char *)nuevo,sizeof(nodo));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(nodo));//Escritura en el archivo Cliente.dat con la informacion de la clase Empleados
+			entrada.close();//Cierra Archivo Cliente.dat
 			inicio = nuevo;
 			finali = nuevo;
 		}
 		else 
 		{
 			nuevo = new nodo(x, finali);
-			entrada.write((char *)nuevo,sizeof(nodo));
-			entrada.close();
+			entrada.write((char *)nuevo,sizeof(nodo));//Escritura en el archivo Cliente.dat con la informacion de la clase Cliente
+			entrada.close();//Cierra Archivo Cliente.dat
 			finali->siguiente = nuevo;
 			nuevo->anterior = finali;
 			finali = nuevo;
@@ -237,7 +237,7 @@ void lista::modificar(char *x) {
 void lista::CargarArchivo(){
 	nodo p[100];
 	ifstream salida;
-     salida.open("Empleado.dat",ios::in|ios::binary);
+     salida.open("Empleado.dat",ios::in|ios::binary);//Abrimos archivo Empleado.dat para cargar los datos en el programa
      int x;
      if (salida.fail())
      {
@@ -248,28 +248,27 @@ void lista::CargarArchivo(){
      else       
      {
      int nreg;
-     salida.seekg(0,ios::end);
-	 nreg=salida.tellg()/sizeof(nodo);
+     salida.seekg(0,ios::end);//Manda la posicion del siguiente caracter extraido desde la entrada
+	 nreg=salida.tellg()/sizeof(nodo);//Me dice cuantos son los elementos que tiene el archivo
      salida.seekg(0);  
      for( x=0;x<nreg;x++)
               {
-				  salida.read((char *)&p[x],sizeof(nodo));	
-				  InsertarEmpleado(p[x]);
+				  salida.read((char *)&p[x],sizeof(nodo));	//Lee el nodo y lo copia a p
+				  InsertarEmpleado(p[x]);// Manda como parametros p y lo inserta al archivo
               }
 	 if(x>0){
 	 cout<<"Datos de Empleados cargados :3 :"<<x<<endl;
 	  Codigo=Codigo+(2*x);
 	 }
-     _getch();
 	 system("cls");
      }
-	 salida.close();
+	 salida.close(); //Cierra el archivo
 }
 void lista::RecargarArchivo(){
 	ofstream entrada;
-	entrada.open("tempEmpleado.dat",ios::out|ios::binary);
+	entrada.open("tempEmpleado.dat",ios::out|ios::binary);//Creacion de archivo temporal binario tempEmpleado.dat
 	ifstream salida;
-	salida.open("Empleado.dat",ios::in|ios::binary);
+	salida.open("Empleado.dat",ios::in|ios::binary);//Abre archivo Empleado.dat
 	nodo *nuevo;
 	nuevo=inicio;
 		while(nuevo!=NULL)
@@ -279,7 +278,7 @@ void lista::RecargarArchivo(){
 		}
 		entrada.close();
 		salida.close();
-	remove("Empleado.dat");
-	rename("tempEmpleado.dat","Empleado.dat");
+	remove("Empleado.dat");//Eliminacion del archivo Empleado.dat
+	rename("tempEmpleado.dat","Empleado.dat");//Cambio de nombre de tempEmpleado.dat a Empleado.dat
 	entrada.close();
 }
