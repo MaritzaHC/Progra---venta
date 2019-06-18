@@ -1,3 +1,11 @@
+/*
+	Name:Progra---venta 
+	Author: Hugo Jessael Jirano Macias 18310154
+			Maritza Hernandez Contreras 18310135
+	Date: 17/06/19 19:11
+	Description: El menu de todo el programa
+*/
+
 #include"todo.h"
 #include"clases/Cliente.h"
 #include"clases/Empleados.h"
@@ -5,9 +13,23 @@
 #include"clases/factura.h"
 int main()
 {
+	cout<<"------------------------------------------------------------------------------------------------"<<endl;
+	cout<<"                                       BIENVENIDO"<<endl;
+	cout<<"                               A la agencia AutosVendeYa"<<endl;
+	cout<<"------------------------------------------------------------------------------------------------"<<endl<<endl;
+	cout<<"Este programa te permite ingresar:"<<endl;
+	cout<<" * Carros"<<endl<<" * Clientes"<<endl<<" * Empleados"<<endl<<" * Facturas"<<endl<<endl;
+	cout<<"Programa elavorado por: "<<endl;
+	cout<<"Maritza Hernandez Contreras"<<endl<<"Hugo Jessael Jirano Macias"<<endl<<endl;
+	cout<<"Grupo: 2F";
+	getch();
+	system("cls");
 	int opc=0;
 	char cod[40];
 	int x;
+	int opc3=0;
+    char nomm[20];
+    int opc2=0;
 	
 	carros car;
 	factura fac;
@@ -32,7 +54,6 @@ int main()
 				{
 					system("cls");
 					cout<<"Registros\n\n\n\n";
-					int opc2=0;
 					do{
 						system("cls");
 						cout<<"Que es lo que desea registrar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
@@ -73,7 +94,6 @@ int main()
 				{
 					system("cls");
 					cout<<"Consultas\n\n\n\n";
-					int opc2=0;
 					do{
 						system("cls");
 						cout<<"Que desea consultar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
@@ -83,23 +103,20 @@ int main()
 							case 1:
 								{
 									system("cls");
-									int opc3=0;
-									char nomm[20];
 									cout<<"Como desea realizar su consulta?\n1.-Por Nombre\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
-									if(opc3==1)
+									switch(opc3)
 									{
-										cout << "Ingrese el modelo que quiere consultar\n\n";
-										cin >> nomm;
-										listaCa.mostrarUno(nomm);
-									}
-									else if(opc==2)
-									{
-										listaCa.mostrar();
-									}
-									else
-									{
-										cout<<"Opcion Invalida"<<endl;
+										case 1:
+											cout << "Ingrese el modelo que quiere consultar\n\n";
+											cin >> nomm;
+											listaCa.mostrarUno(nomm);
+											break;
+										case 2:
+											listaCa.mostrar();
+											break;
+										default:
+											cout<<"Opcion Invalida"<<endl;
 									}
 								}
 								getch();
@@ -107,47 +124,41 @@ int main()
 							case 2:
 								{
 									system("cls");
-									int opc3=0;
-									char nomm[20];
 									cout<<"Como desea realizar su consulta?\n1.-Por Nombre\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
-									if(opc3==1)
+									switch(opc3)
 									{
-										cout<<"Ingrese el nombre que quiere consultar\n\n";
-										cin>>nomm;
-										listE.mostrarUno(nomm);
-									}
-									else if(opc==2)
-									{
-										listE.mostrar();
-									}
-									else
-									{
-										cout<<"Opcion Invalida"<<endl;
+										case 1:
+											cout<<"Ingrese el nombre que quiere consultar\n\n";
+											cin>>nomm;
+											listE.mostrarUno(nomm);
+											break;
+										case 2:
+											listE.mostrar();
+											break;
+										default:
+											cout<<"Opcion Invalida"<<endl;
 									}
 								}
-								getch();
-								break;
+									getch();
+									break;
 							case 3:
 								{
 									system("cls");
-									int opc3=0;
-									char nomm[20];
 									cout<<"Como desea realizar su consulta?\n1.-Por Nombre\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
-									if(opc3==1)
+									switch(opc3)
 									{
-										cout<<"Ingrese el nombre que quiere consultar\n\n";
-										cin>>nomm;
-										listC.MostrarUno(nomm);
-									}
-									else if(opc==2)
-									{
-										listC.Mostrar();
-									}
-									else
-									{
-										cout<<"Opcion Invalida"<<endl;
+										case 1:
+											cout<<"Ingrese el nombre que quiere consultar\n\n";
+											cin>>nomm;
+											listC.MostrarUno(nomm);
+											break;
+										case 2:
+											listC.Mostrar();
+											break;
+										default:
+											cout<<"Opcion Invalida"<<endl;
 									}
 								}
 								getch();
@@ -155,51 +166,27 @@ int main()
 							case 4:
 								{
 									system("cls");
-									int opc3=0;
-									char nomm[20];
-									cout<<"Como desea realizar su consulta?1.-Por Nombre\n2.-Mostrar Todos\n\n";
+									cout<<"Como desea realizar su consulta?\n1.-Por ID\n2.-Mostrar Todos\n\n";
 									cin>>opc3;
-									if(opc3==1)
+									switch(opc3)
 									{
-										cout<<"Ingrese la ide de lafactura que quiere consultar\n\n";
-										cin>>x;
-										listaF.mostrarUno(x);
-									}
-									else if(opc==2)
-									{
-										listaF.mostrar();
-									}
-									else
-									{
-										cout<<"Opcion Invalida"<<endl;
+										case 1:
+											cout<<"Ingrese la ide de la factura que quiere consultar\n\n";
+											cin>>x;
+											listaF.mostrarUno(x);
+											break;
+										case 2:
+											listaF.mostrar();
+											break;
+										default:
+											cout<<"Opcion Invalida"<<endl;
 									}
 								}
 								getch();
-								break;
 								system("cls");
 								break;
 							case 5:
-								{
-								system("cls");
-									int opc3=0;
-									int cosa;
-									cout<<"Como desea realizar su consulta?\n1.-Por id\n2.-Mostrar Todos\n\n";
-									cin>>opc3;
-									if(opc3==1)
-									{
-										cout << "Ingrese el id de la factura que quiere consultar\n\n";
-										cin >> cosa;
-										listaF.mostrarUno(cosa);
-									}
-									else if(opc==2)
-									{
-										listaF.mostrar();
-									}
-									else
-									{
-										cout<<"Opcion Invalida"<<endl;
-									}
-								}
+								cout<<"Regresando a menu..."<<endl;
 								getch();
 								system("cls");
 								break;
@@ -213,7 +200,6 @@ int main()
 				{
 					system("cls");
 					cout<<"Modificaciones\n\n\n\n";
-					int opc2=0;
 					do{
 						system("cls");
 						cout<<"Que desea modificar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Regresar"<<endl;
@@ -239,6 +225,7 @@ int main()
 								listC.Modificar(cod);
 								break;
 							case 4:
+								cout<<"Regresando a menu"<<endl;
 								system("cls");
 								break;
 							default:
@@ -251,7 +238,6 @@ int main()
 				{
 					system("cls");
 					cout<<"Eliminar\n\n\n\n";
-					int opc2=0;
 					do{
 						system("cls");
 						cout<<"Que desea eliminar?\n\n1.-Carros\n2.-Empleados\n3.-Clientes\n4.-Factura\n5.-Regresar"<<endl;
@@ -283,6 +269,7 @@ int main()
 								listaF.borrar(x);
 								break;
 							case 5:
+								cout<<"Regresando a menu"<<endl;
 								system("cls");
 								break;
 							default:

@@ -1,3 +1,10 @@
+/*
+	Name:Progra---venta 
+	Author: Hugo Jessael Jirano Macias 18310154
+			Maritza Hernandez Contreras 18310135
+	Date: 17/06/19 19:11
+	Description: clase empleado
+*/
 #include "../todo.h"
 class Empleados{
 	private:
@@ -33,10 +40,10 @@ void Empleados::registrarEmpleado(){
 	cout<<"Ingrese la comision del Empleado"<<endl; fflush(stdin); cin>>comision; setComisiones(comision);
 }
 void Empleados::ConsultarEmpleado(){
-	cout<<"Nombre :\t"<<getNombre();
-	cout<<"Edad :\t"<<getEdad();
-	cout<<"Sueldo :\t"<<getSueldo();
-	cout<<"Comision :\t"<<getComisiones();
+	cout<<"Nombre:    "<<getNombre();
+	cout<<"Edad:      "<<getEdad();
+	cout<<"Sueldo:    "<<getSueldo();
+	cout<<"Comision:  "<<getComisiones();
 }
 class nodo {
 	public:
@@ -71,7 +78,7 @@ public:
 void lista::insertar(Empleados x) {
 	nodo *nuevo;
 	ofstream entrada;
-	entrada.open("Empleado.dat",ios::out|ios::app|ios::binary);
+	entrada.open("Empleado.dat",ios::out|ios::app|ios::binary);//
 	if(entrada.fail())
 	{
         cout<<"error al crear archivo";
@@ -107,8 +114,13 @@ void lista::borrar(char *x) {
 		{
 			if (strcmp(nuevo->valor.getNombre(),x)==0)
 			{
-				
-				if (nuevo == inicio) {
+				if(inicio == finali)
+				{
+					cout<<"Hola"<<endl;
+					finali = NULL;
+					inicio = NULL;
+				}
+				else if (nuevo == inicio) {
 					inicio->siguiente->anterior = NULL;
 					inicio = inicio->siguiente;
 				}
@@ -122,7 +134,12 @@ void lista::borrar(char *x) {
 				}
 				con = true;
 			}
-			if (con == true)delete nuevo;
+			if (con == true)
+			{
+				cout<<"Hola1";
+				delete nuevo;
+				cout<<"Hola2";
+			}
 			else if (nuevo->siguiente == NULL) {
 				con = true; 
 				cout << "No se pudo borrar" << endl;
@@ -156,10 +173,10 @@ void lista::mostrar() {
 	nuevo = inicio;
 	while (nuevo!=NULL)
 	{
-		cout <<"Nombre :\t"<< nuevo->valor.getNombre()<< endl;
-		cout <<"Edad :\t"<< nuevo->valor.getEdad() << endl;
-		cout <<"Sueldo :\t"<< nuevo->valor.getSueldo() << endl;
-		cout <<"Comision :\t"<< nuevo->valor.getComisiones() << endl;
+		cout <<"Nombre:   "<< nuevo->valor.getNombre()<< endl;
+		cout <<"Edad:     "<< nuevo->valor.getEdad() << endl;
+		cout <<"Sueldo:   "<< nuevo->valor.getSueldo() << endl;
+		cout <<"Comision: "<< nuevo->valor.getComisiones() << endl;
 		cout << "--------------------------------"<<endl;
 		nuevo = nuevo->siguiente;
 	}
@@ -171,10 +188,10 @@ void lista::mostrarUno(char *x) {
 	while (con!=true)
 	{
 		if (strcmp(nuevo->valor.getNombre(),x)==0) {
-			cout <<"Nombre :\t"<< nuevo->valor.getNombre() << endl;
-			cout <<"Edad :\t"<< nuevo->valor.getEdad() << endl;
-			cout <<"Sueldo :\t"<< nuevo->valor.getSueldo() << endl;
-			cout <<"Comision :\t"<< nuevo->valor.getComisiones() << endl;
+			cout <<"Nombre:   "<< nuevo->valor.getNombre() << endl;
+			cout <<"Edad:     "<< nuevo->valor.getEdad() << endl;
+			cout <<"Sueldo:   "<< nuevo->valor.getSueldo() << endl;
+			cout <<"Comision: "<< nuevo->valor.getComisiones() << endl;
 			con = true;
 		}
 		else if (nuevo->siguiente == NULL) {

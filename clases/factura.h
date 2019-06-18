@@ -1,19 +1,26 @@
+/*
+	Name:Progra---venta 
+	Author: Hugo Jessael Jirano Macias 18310154
+			Maritza Hernandez Contreras 18310135
+	Date: 17/06/19 19:11
+	Description: clase factura
+*/
 #include "../todo.h"
 
 class factura{
     private:
-        char cliente[20];
+        char cliente[30];
         int cant;
-        int idCarro;
+        char marcaCarro[30];
         float precio;
         float total;
-        char nomVendedor[20];
+        char nomVendedor[30];
         float comicion;
     public:
         int id;
         char* getCliente(){return cliente;}
         int getCant(){return cant;}
-        int getIdCarro(){return idCarro;}
+        char* getmarcaCarro(){return marcaCarro;}
         float getPrecio(){return precio;}
         float getTotal(){return total;}
         char* getnomVendedor(){return nomVendedor;}
@@ -21,7 +28,7 @@ class factura{
 
         void setCant(int dato){cant = dato;}
         void setCliente(char *dato){strcpy(cliente,dato);}
-        void setIdCarro(int dato){idCarro= dato;}
+        void setmarcaCarro(char *dato){strcpy(marcaCarro,dato);}
         void setPrecio(float dato){precio= dato;}
         void setTotal(float dato){total= dato;}
         void setnomVendedor(char *dato){strcpy(nomVendedor,dato);}
@@ -97,7 +104,12 @@ void listaFactura::borrar(int x) {
 	while (con != true)
 	{
 		if (nuevo->valor.id==x) {
-			if (nuevo == inicio) {
+			if(inicio == finali)
+				{
+					finali = NULL;
+					inicio = NULL;
+				}
+			else if (nuevo == inicio) {
 				inicio->siguiente->anterior = NULL;
 				inicio = inicio->siguiente;
 			}
@@ -141,14 +153,14 @@ void listaFactura::mostrar() {
 	nuevo = inicio;
 	while (nuevo)
 	{
-		cout << "Id: \t" << nuevo->valor.id << endl;
-		cout << "Cliente: \t" << nuevo->valor.getCliente() << endl;
-		cout << "Carro: \t" << nuevo->valor.getIdCarro() << endl;
-		cout << "Cantidad: \t" << nuevo->valor.getCant() << endl;
-		cout << "Precio: \t" << nuevo->valor.getPrecio() << endl;
-		cout << "Total: \t" << nuevo->valor.getTotal() << endl;
-		cout << "Vendedor: \t" << nuevo->valor.getnomVendedor() << endl;
-		cout << "Comicion: \t" << nuevo->valor.getComicion() << endl;
+		cout << "Id:       " << nuevo->valor.id << endl;
+		cout << "Cliente:  " << nuevo->valor.getCliente() << endl;
+		cout << "Carro: " << nuevo->valor.getmarcaCarro() << endl;
+		cout << "Cantidad: " << nuevo->valor.getCant() << endl;
+		cout << "Precio:   " << nuevo->valor.getPrecio() << endl;
+		cout << "Total:    " << nuevo->valor.getTotal() << endl;
+		cout << "Vendedor: " << nuevo->valor.getnomVendedor() << endl;
+		cout << "Comicion: " << nuevo->valor.getComicion() << endl;
 		cout << "-----------------------------------"<<endl;
 		nuevo = nuevo->siguiente;
 	}
@@ -160,14 +172,14 @@ void listaFactura::mostrarUno(int x) {
 	while (con!=true)
 	{
 		if (nuevo->valor.id == x) {
-			cout << "Id: \t" << nuevo->valor.id << endl;
-			cout << "Cliente: \t" << nuevo->valor.getCliente() << endl;
-			cout << "Carro: \t" << nuevo->valor.getIdCarro() << endl;
-			cout << "Cantidad: \t" << nuevo->valor.getCant() << endl;
-			cout << "Precio: \t" << nuevo->valor.getPrecio() << endl;
-			cout << "Total: \t" << nuevo->valor.getTotal() << endl;
-			cout << "Vendedor: \t" << nuevo->valor.getnomVendedor() << endl;
-			cout << "Comicion: \t" << nuevo->valor.getComicion() << endl;
+			cout << "Id:       " << nuevo->valor.id << endl;
+			cout << "Cliente:  " << nuevo->valor.getCliente() << endl;
+			cout << "Carro: " << nuevo->valor.getmarcaCarro() << endl;
+			cout << "Cantidad: " << nuevo->valor.getCant() << endl;
+			cout << "Precio:   " << nuevo->valor.getPrecio() << endl;
+			cout << "Total:    " << nuevo->valor.getTotal() << endl;
+			cout << "Vendedor: " << nuevo->valor.getnomVendedor() << endl;
+			cout << "Comicion: " << nuevo->valor.getComicion() << endl;
 			con = true;
 		}
 		else if (nuevo->siguiente == NULL) {
@@ -179,23 +191,25 @@ void listaFactura::mostrarUno(int x) {
 }
 
 void factura::registrarFactura(){
-	char s[20];
-	int a;
-	float prec;
-	cout << "Ingrese el cliente: ";
+	char s[30];
+	int cc;
+	float pp,a;
+	cout << "Ingrese el nombre del cliente: ";
 	fflush(stdin); cin>>s; setCliente(s);
 	cout << "Ingrese la cantidad: ";
-	fflush(stdin); cin>>a; setCant(a);
-	cout << "Ingrese el id carro: ";
-	fflush(stdin); cin >> a; setIdCarro(a);
+	fflush(stdin); cin>>cc; setCant(cc);
+	cout << "Ingrese la marca del carro: ";
+	fflush(stdin); cin >> s; setmarcaCarro(s);
 	cout << "Ingrese el precio: ";
-	fflush(stdin); cin >> prec; setPrecio(prec);
-	cout << "Ingrese el total: ";
-	fflush(stdin); cin >> prec; setTotal(prec);
-	cout << "Ingrese el id vendedor: ";
+	fflush(stdin); cin >> pp; setPrecio(pp);
+	cout << "El total es: ";
+	a=cc*pp;
+	setTotal(a);
+	cout << a <<endl;
+	cout << "Ingrese el nombre del vendedor: ";
 	fflush(stdin); cin >> s; setnomVendedor(s);
 	cout << "Ingrese la comicion: ";
-	fflush(stdin); cin >> prec; setComicion(prec);
+	fflush(stdin); cin >> pp; setComicion(pp);
 }
 void listaFactura::CargarArchivo(){
 	nodoFactura p[100];

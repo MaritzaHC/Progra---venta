@@ -1,4 +1,0 @@
-yo digo que hay que separar las cosas:
-terner una carpeta para poner todas las clases (las clases van una por cpp)
-tener un .h para poner todas las librerias en un solo archivo ejm los #inlcude <string> y demas para ahorrarnos escribir
-tener el main tambien separado

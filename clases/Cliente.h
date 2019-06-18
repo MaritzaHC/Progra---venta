@@ -1,3 +1,10 @@
+/*
+	Name:Progra---venta 
+	Author: Hugo Jessael Jirano Macias 18310154
+			Maritza Hernandez Contreras 18310135
+	Date: 17/06/19 19:11
+	Description: clase cliente
+*/
 #include "../todo.h"
 class Cliente{
 	private:
@@ -28,10 +35,10 @@ void Cliente::registrarCliente(){
 }
 void Cliente::consultarCliente(){
 	
-	cout<<"Nombre :\t"<<getNombreCliente();
-	cout<<"RFC :\t"<<getRFC();
-	cout<<"Domicilio :\t"<<getDomicilio();
-	cout<<"Telefono :\t"<<getTelefono();
+	cout<<"Nombre:     "<<getNombreCliente();
+	cout<<"RFC:        "<<getRFC();
+	cout<<"Domicilio:  "<<getDomicilio();
+	cout<<"Telefono:   "<<getTelefono();
 }
 class NodoCliente {
 	public:
@@ -101,8 +108,13 @@ void ListaCliente::Borrar(char *x) {
 		{
 			if (strcmp(nuevo->valor.getNombreCliente(),x)==0)
 			{
-				
-				if (nuevo == inicio) {
+				if(inicio == finali)
+				{
+					cout<<"Hola"<<endl;
+					finali = NULL;
+					inicio = NULL;
+				}
+				else if (nuevo == inicio) {
 					inicio->siguiente->anterior = NULL;
 					inicio = inicio->siguiente;
 				}
@@ -163,10 +175,10 @@ void ListaCliente::MostrarUno(char *x) {
 	while (con!=true)
 	{
 		if (strcmp(nuevo->valor.getNombreCliente(),x)==0) {
-			cout <<"Nombre :\t"<< nuevo->valor.getNombreCliente() << endl;
-			cout <<"RFC :\t"<< nuevo->valor.getRFC() << endl;
-			cout <<"Domicilio :\t"<< nuevo->valor.getDomicilio() << endl;
-			cout <<"Telefono :\t"<< nuevo->valor.getTelefono() << endl;
+			cout <<"Nombre:     "<< nuevo->valor.getNombreCliente() << endl;
+			cout <<"RFC:        "<< nuevo->valor.getRFC() << endl;
+			cout <<"Domicilio:  "<< nuevo->valor.getDomicilio() << endl;
+			cout <<"Telefono:   "<< nuevo->valor.getTelefono() << endl;
 			con = true;
 		}
 		else if (nuevo->siguiente == NULL) {

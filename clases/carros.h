@@ -1,3 +1,10 @@
+/*
+	Name:Progra---venta 
+	Author: Hugo Jessael Jirano Macias 18310154
+			Maritza Hernandez Contreras 18310135
+	Date: 17/06/19 19:11
+	Description: clase carros
+*/
 #include "../todo.h"
 
 class carros{
@@ -87,7 +94,13 @@ void listaCarros::borrar(char *x) {
 	while (con != true)
 	{
 		if (strcmp(nuevo->valor.getModelo(),x)==0) {
-			if (nuevo == inicio) {
+			if(inicio == finali)
+				{
+					cout<<"Hola"<<endl;
+					finali = NULL;
+					inicio = NULL;
+				}
+			else if (nuevo == inicio) {
 				inicio->siguiente->anterior = NULL;
 				inicio = inicio->siguiente;
 			}
@@ -131,10 +144,10 @@ void listaCarros::mostrar() {
 	nuevo = inicio;
 	while (nuevo)
 	{
-		cout << "Marca: \t" << nuevo->valor.getMarca() << endl;
-		cout << "Modelo: \t" << nuevo->valor.getModelo() << endl;
-		cout << "Aa: \t" << nuevo->valor.getAa() << endl;
-		cout << "Precio: \t" << nuevo->valor.getPrecio() << endl;
+		cout << "Marca:   " << nuevo->valor.getMarca() << endl;
+		cout << "Modelo:  " << nuevo->valor.getModelo() << endl;
+		cout << "Aa:      " << nuevo->valor.getAa() << endl;
+		cout << "Precio:  " << nuevo->valor.getPrecio() << endl;
 		cout << "--------------------------------"<<endl;
 		nuevo = nuevo->siguiente;
 	}
@@ -146,10 +159,10 @@ void listaCarros::mostrarUno(char *x) {
 	while (con!=true)
 	{
 		if (strcmp(nuevo->valor.getModelo(),x)==0) {
-			cout << "Marca: \t" << nuevo->valor.getMarca() << endl;
-			cout << "Modelo: \t" << nuevo->valor.getModelo() << endl;
-			cout << "Aa: \t" << nuevo->valor.getAa() << endl;
-			cout << "Precio: \t" << nuevo->valor.getPrecio() << endl;
+			cout << "Marca:   " << nuevo->valor.getMarca() << endl;
+			cout << "Modelo:  " << nuevo->valor.getModelo() << endl;
+			cout << "Aa:      " << nuevo->valor.getAa() << endl;
+			cout << "Precio:  " << nuevo->valor.getPrecio() << endl;
 			con = true;
 		}
 		else if (nuevo->siguiente == NULL) {
